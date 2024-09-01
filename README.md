@@ -27,9 +27,8 @@ To run this project locally, you'll need to have Python installed. Follow the st
    ```bash
    python -m venv venv
    source venv/bin/activate  # On Windows: venv\Scripts\activate
-3. Install the required dependencies:
-   ```bash
-   pip install -r requirements.txt
+3. Install the required dependencies i.e the libraries used in the import statements if they are not there:
+   
 4. ### !!!if you are unable to upload images in streamlit app then try:
    ```bash
    pip install streamlit==1.24.0 
