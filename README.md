@@ -2,7 +2,9 @@
 
 **TaleCraft** is an assistant tool designed to help novelists and content writers generate narratives and enhance text. Whether you want to create stories from images, describe scenes like in a novel, or improve your text, TaleCraft is here to assist you in your creative writing journey.
 
-## Features
+![Example Image](TaleCraft.png)
+![Example Image](TaleCraft2.png)
+
 
 ### 1. Story Generation
 Generate narratives from images or text input. Simply upload an image or type in a scenario, and TaleCraft will create a short story to inspire your writing.
