@@ -9,9 +9,15 @@ from PIL import Image
 import base64
 
 # Convert an image to text using an image captioning model
-def img2text(image):
-    pipe = pipeline("image-to-text", model="Salesforce/blip-image-captioning-base")
-    text = pipe(image)[0]["generated_text"]
+def img2text(image,api_token):
+    API_URL = "https://api-inference.huggingface.co/models/Salesforce/blip-image-captioning-base"
+    headers = {"Authorization": f"Bearer {api_token}"}
+    def query(image):
+        response = requests.post(API_URL, headers=headers, files={"file": image})
+        return response.json()
+    
+    result = query(image)
+    text = result[0]["generated_text"] if result and "generated_text" in result[0] else "No text generated."
     return text
 
 # Generate a story from a scenario or input text
@@ -170,7 +176,7 @@ This application serves as a creative assistant for novelists and content writer
 
                 if st.button('Generate Story'):
                     # Image to text
-                    scenario = img2text(image)
+                    scenario = img2text(image,api_token)
                     st.write("Image Caption:", scenario)
 
                     # Generate story
