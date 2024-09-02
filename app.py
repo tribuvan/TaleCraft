@@ -7,21 +7,11 @@ from langchain_community.llms import HuggingFaceHub
 import requests
 from PIL import Image
 import base64
-from io import BytesIO
+
 # Convert an image to text using an image captioning model
 def img2text(image,api_token):
-    API_URL = "https://api-inference.huggingface.co/models/Salesforce/blip-image-captioning-base"
-    headers = {"Authorization": f"Bearer {api_token}"}
-    def query(image):
-        # Send the image file in the POST request
-        response = requests.post(API_URL, headers=headers, files={"file": image})
-        return response.json()
-    
-    # Get the result from the API
-    result = query(image)
-    
-    # Extract the generated text if available, otherwise return "No text generated."
-    text = result[0]["generated_text"] if result and isinstance(result, list) and "generated_text" in result[0] else "No text generated."
+    pipe = pipeline("image-to-text", model="Salesforce/blip-image-captioning-base")
+    text = pipe(image)[0]["generated_text"]
     return text
 
 # Generate a story from a scenario or input text
@@ -180,7 +170,7 @@ This application serves as a creative assistant for novelists and content writer
 
                 if st.button('Generate Story'):
                     # Image to text
-                    scenario = img2text(image,api_token)
+                    scenario = img2text(image)
                     st.write("Image Caption:", scenario)
 
                     # Generate story
