@@ -1,5 +1,4 @@
 import streamlit as st
-import transformers
 from transformers import pipeline
 from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
@@ -10,7 +9,7 @@ import base64
 
 # Convert an image to text using an image captioning model
 def img2text(image):
-    pipe = transformers.pipeline("image-to-text", model="Salesforce/blip-image-captioning-base")
+    pipe = pipeline("image-to-text", model="Salesforce/blip-image-captioning-base")
     text = pipe(image)[0]["generated_text"]
     return text
 
