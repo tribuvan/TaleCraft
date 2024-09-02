@@ -12,19 +12,12 @@ from io import BytesIO
 def img2text(image,api_token):
     API_URL = "https://api-inference.huggingface.co/models/Salesforce/blip-image-captioning-base"
     headers = {"Authorization": f"Bearer {api_token}"}
-    def query(image):
-        # Convert the image to a file-like object if it's not already
-        if isinstance(image, BytesIO):
-            files = {"file": image}
-        else:
-            # Convert PIL image to BytesIO if needed
-            buffered = BytesIO()
-            image.save(buffered, format="JPEG")
-            buffered.seek(0)
-            files = {"file": buffered}
-        
-        response = requests.post(API_URL, headers=headers, files=files)
+    def query(filename):
+        with open(filename, "rb") as f:
+            data = f.read()  # Read the image file as binary data
+        response = requests.post(API_URL, headers=headers, data=data)  # Send the binary data in the request
         return response.json()
+
     
     result = query(image)
     text = result[0]["generated_text"] if result and isinstance(result, list) and "generated_text" in result[0] else "No text generated."
