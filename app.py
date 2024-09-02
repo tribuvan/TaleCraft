@@ -1,4 +1,5 @@
 import streamlit as st
+import transformers
 from transformers import pipeline
 from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
