@@ -9,7 +9,7 @@ from PIL import Image
 import base64
 
 # Convert an image to text using an image captioning model
-def img2text(image,api_token):
+def img2text(image):
     pipe = transformers.pipeline("image-to-text", model="Salesforce/blip-image-captioning-base")
     text = pipe(image)[0]["generated_text"]
     return text
